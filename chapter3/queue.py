@@ -1,3 +1,4 @@
+#行列の計算
 import numpy as np
 
 X = np.array([1,2])
