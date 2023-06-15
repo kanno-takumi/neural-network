@@ -24,6 +24,7 @@ class TwoLayerNet:
         self.params['b1'] = np.zeros(hidden_size) #0で初期化した配列を作る
         self.params['W2'] = weight_init_std * np.random.randn(hidden_size, output_size)
         self.params['b2'] = np.zeros(output_size)
+        print(self.params)
         
     def predict(self,x):
         W1,W2 = self.params['W1'],self.params['W2']
@@ -42,8 +43,7 @@ class TwoLayerNet:
     
     def loss(self,x,t): #損失関数
         y = self.predict(x)
-        
-        return cross_entropy_error(y,t)
+        return cross_entropy_error(y,t) #2.302944356298707のような値
     
     def accuracy(self,x,t): #どれくらい合っているか
         y = self.predict(x)
@@ -53,12 +53,13 @@ class TwoLayerNet:
         accuracy = np.sum( y==t ) / float(x.shape[0])
         return accuracy
     
-    def numerical_gradient(self,x,t): #損失関数における勾配
-        loss_W = lambda W: self.loss(x,t) #predictの結果と正解ラベルの交差エントロピー誤差  #無名関数
+    def numerical_gradient(self,x,t): #損失関数における勾配　＃x→入力データのこと t→教師データ
+        loss_W = lambda : self.loss(x,t) #predictの結果と正解ラベルの交差エントロピー誤差  #無名関数
         grads = {} #ディクショナリー
         
+        #なぜ分ける必要があるのか
         grads['W1'] = numerical_gradient(loss_W,self.params['W1']) #引数(損失関数、その関数に入れる入力)
-        grads['b1'] = numerical_gradient(loss_W,self.params['b1'])
+        grads['b1'] = numerical_gradient(loss_W,self.params['b1'])#サイズを決めるためだけにparams['b1'] ['W1'] ['W2'] ['b2']
         grads['W2'] = numerical_gradient(loss_W,self.params['W2'])
         grads['b2'] = numerical_gradient(loss_W,self.params['b2'])
         return grads

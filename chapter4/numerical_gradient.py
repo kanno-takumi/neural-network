@@ -1,7 +1,7 @@
 #勾配の実装 (偏微分をベクトルとしてまとめたもの)
 
 import numpy as np
-def numerical_gradient(f,x): #(function,入力)
+def numerical_gradient(f,x): #(function,入力)　＃ここでのxは損失関数に入れるxの配列
     h = 1e-4 #0.0001 1^(-4)
     grad = np.zeros_like(x) #xと同じサイズの配列を作る
     
@@ -20,7 +20,7 @@ def numerical_gradient(f,x): #(function,入力)
         
     return grad
 
-#２変数
+#２変数 #損失関数ではない #ただの勾配を求める関数.
 def function_sample_1(x):
     return x[0]**2+x[1]**2
 

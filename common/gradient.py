@@ -31,21 +31,22 @@ def numerical_gradient_2d(f, X):
         return grad
 
 
-def numerical_gradient(f, x):
+def numerical_gradient(f, x): #(損失関数,W1,W2,b1,b2のどれか） 
     h = 1e-4 # 0.0001
     grad = np.zeros_like(x)
 
-    it = np.nditer(x, flags=['multi_index'], op_flags=['readwrite'])
+    it = np.nditer(x, flags=['multi_index'], op_flags=['readwrite']) #nditerはインデックスをタプル形式で順番に返す
     
     while not it.finished:
         idx = it.multi_index
         tmp_val = x[idx]
         x[idx] = tmp_val + h
-        fxh1 = f(x) # f(x+h)
+        fxh1 = f() # f(x+h)
         
         x[idx] = tmp_val - h 
-        fxh2 = f(x) # f(x-h)
-        grad[idx] = (fxh1 - fxh2) / (2*h)
+        fxh2 = f() # f(x-h)
+        
+        grad[idx] = (fxh1 - fxh2) / (2*h) #傾き
         
         x[idx] = tmp_val # 値を元に戻す
         it.iternext()   
