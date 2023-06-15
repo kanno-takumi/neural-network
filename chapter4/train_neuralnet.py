@@ -10,7 +10,7 @@ from two_layer_net import TwoLayerNet
 train_loss_list =[]
 
 #ハイパーパラメータ
-iters_num = 1000 #バッチデータに対する試行回数
+iters_num = 1#バッチデータに対する試行回数
 train_size = x_train.shape[0]
 batch_size = 100
 learning_rate =0.1 #イータη
@@ -24,15 +24,12 @@ for i in range(iters_num):
     batch_mask = np.random.choice(train_size,batch_size)
     x_batch = x_train[batch_mask]
     t_batch = t_train[batch_mask]
-    n=0
     #勾配の計算
     grad = network.numerical_gradient(x_batch,t_batch)
     #パラメータの更新(ちょっとずらす)
     for key in ('W1','b1','W2','b2'):
         network.params[key] = network.params[key] - learning_rate * grad[key]
         #例）network.params[W1] = network.params[W1] -  learning_rate * grad[W1]
-        print(n)
-        n=n+1
         
     #学習経過の記録
     loss = network.loss(x_batch,t_batch)
@@ -43,7 +40,8 @@ time_end = time.time()
 result_time = time_end - time_start
 print(result_time)
 
-with open('out.txt','W') as f:
-    print(train_loss_list,file=f)    
-    
+print(train_loss_list)
+#f = open('out.txt','w')   
+#f.write("".join(train_loss_list))
+#f.close()
     

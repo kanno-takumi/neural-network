@@ -24,7 +24,7 @@ class TwoLayerNet:
         self.params['b1'] = np.zeros(hidden_size) #0で初期化した配列を作る
         self.params['W2'] = weight_init_std * np.random.randn(hidden_size, output_size)
         self.params['b2'] = np.zeros(output_size)
-        print(self.params)
+        #print(self.params)
         
     def predict(self,x):
         W1,W2 = self.params['W1'],self.params['W2']

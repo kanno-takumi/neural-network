@@ -21,7 +21,7 @@ class SimpleNet:
         return loss
 
 net = SimpleNet()
-print(net.W)
+#print(net.W)
 x = np.array([0.6,0.9]) #入力層(手書き文字の認識から一度離れる) AND,OR,NORゲートのような数値のものを想定する 
 p = net.predict(x)
 
