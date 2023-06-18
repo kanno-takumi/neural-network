@@ -32,9 +32,9 @@ class TwoLayerNet:
         #ここで再度W1,W2,b1,b2を定義して入れている
         
         a1 = np.dot(x,W1) + b1 #入力層からの計算
-        z1 = sigmoid(a1) #活性化関数
+        z1 = relu(a1) #活性化関数
         a2 = np.dot(z1,W2) + b2      
-        y = softmax(a2)    
+        y = sigmoid(a2) #出力は0〜1　本来は0から255の値が入ることになっているが正規化しているため
         #print("xのサイズ",x.shape) 
         #print("W1のサイズ",W1.shape)
         #print("aのサイズ",a1.shape)

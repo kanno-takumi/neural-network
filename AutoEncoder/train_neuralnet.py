@@ -9,11 +9,14 @@ from two_layer_net import TwoLayerNet
 #0と1のデータ0から1000個を取得する。
 #検証用データ1000から1100
 
+#normalize 正規化
 #one_hot_label t_trainに関して「”true”の時one-hot表現 ”false”の時数値で扱う」
 (x_train, t_train), (x_test, t_test) = load_mnist(normalize=True,one_hot_label=False) 
 t_train_0=t_train[np.where(t_train==0)] #0のデータx
 x_train_0 = x_train[np.where(t_train==0)] #0のデータt
-print("x_train_0",x_train_0)
+print("x_train_0",x_train_0[0])
+# with open('train_out.txt', mode='w') as f:
+#     f.write(str(x_train_0[0]))
 t_train_1 = t_train[np.where(t_train==1)] #1のデータx
 x_train_1 = x_train[np.where(t_train==1)] #1のデータt
 print("x_train_1",x_train_1)
