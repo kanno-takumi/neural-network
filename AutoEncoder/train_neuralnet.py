@@ -3,6 +3,7 @@ import sys,os
 sys.path.append(os.pardir)
 from dataset.mnist import load_mnist
 from two_layer_net import TwoLayerNet
+from image_show import make_img
 # import keras
 #from two_layer_net import TwoLayerNet
 
@@ -28,7 +29,7 @@ def train_neuralnet():
     train_size = x_train_0to1.shape[0]
     print("train_size",train_size) #12665
     batch_size = 100
-    iters_num = 1000 #何回勾配法使うか（イテレータ）
+    iters_num = 5 #何回勾配法使うか（イテレータ）
     learning_rate = 0.1
 
     train_loss_list = []
@@ -45,6 +46,7 @@ def train_neuralnet():
         print("here")
         batch_mask = np.random.choice(train_size,batch_size)#(sizeの中からランダムな値,個数)[a,b,c,d,e,f.....]
         x_batch = x_train[batch_mask]
+        #print("x_batch",x_batch)
         t_batch = x_batch
     
         grad = network.numerical_gradient(x_batch,t_batch)
@@ -56,20 +58,21 @@ def train_neuralnet():
         loss = network.loss(x_batch,t_batch)
         train_loss_list.append(loss)
     
-        if i % iter_per_epoch == 0: #iter_per_epoch=126.65 i=126になった時だけ発動 252 
-            train_acc = network.accuracy(x_train,t_train)
-            test_acc = network.accuracy(x_test,t_test)
-            train_acc_list.append(train_acc)
-            test_acc_list.append(test_acc)
+        # if i % iter_per_epoch == 0: #iter_per_epoch=126.65 i=126になった時だけ発動 252 
+        #     train_acc = network.accuracy(x_train,t_train)
+        #     test_acc = network.accuracy(x_test,t_test)
+        #     train_acc_list.append(train_acc)
+        #     test_acc_list.append(test_acc)
         
-        if i == 1000:
+        if i == iters_num-1:
             #predictの出力結果に対して、255をかければ大丈夫？？？何ならかけなくても大丈夫？
             #line見ればわかる
-            print("処理")
-        
+            make_img(network.predict(x_batch[0]))
 
 
     #精度を確認しているだけ
     print("lossの出力",train_loss_list)
-    print("train acc,test acc |" + str(train_acc)+","+str(test_acc))
+    # print("train acc,test acc |" + str(train_acc)+","+str(test_acc))
+    
+train_neuralnet()
 
