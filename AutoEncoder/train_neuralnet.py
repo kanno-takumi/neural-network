@@ -29,7 +29,7 @@ def train_neuralnet():
     train_size = x_train_0to1.shape[0]
     print("train_size",train_size) #12665
     batch_size = 100
-    iters_num = 5 #何回勾配法使うか（イテレータ）
+    iters_num = 1000 #何回勾配法使うか（イテレータ）
     learning_rate = 0.1
 
     train_loss_list = []

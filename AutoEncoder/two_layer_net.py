@@ -35,6 +35,7 @@ class TwoLayerNet:
         z1 = relu(a1) #活性化関数
         a2 = np.dot(z1,W2) + b2      
         y = sigmoid(a2) #出力は0〜1　本来は0から255の値が入ることになっているが正規化しているため
+        #print("predictの出力",y)
         #print("xのサイズ",x.shape) 
         #print("W1のサイズ",W1.shape)
         #print("aのサイズ",a1.shape)
