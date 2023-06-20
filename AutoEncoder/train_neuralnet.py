@@ -29,7 +29,7 @@ def train_neuralnet():
     train_size = x_train_0to1.shape[0]
     print("train_size",train_size) #12665
     batch_size = 100
-    iters_num = 1000 #何回勾配法使うか（イテレータ）
+    iters_num = 500 #何回勾配法使うか（イテレータ）
     learning_rate = 0.1
 
     train_loss_list = []
@@ -45,7 +45,7 @@ def train_neuralnet():
     for i in range(iters_num): #1バッチに対して勾配法を用いる回数
         print("here")
         batch_mask = np.random.choice(train_size,batch_size)#(sizeの中からランダムな値,個数)[a,b,c,d,e,f.....]
-        x_batch = x_train[batch_mask]
+        x_batch = x_train_0to1[batch_mask]
         #print("x_batch",x_batch)
         t_batch = x_batch
     

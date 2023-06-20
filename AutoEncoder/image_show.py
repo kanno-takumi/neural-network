@@ -50,7 +50,7 @@ print("img2.shape",img2.shape)
 
 #sampleで入れてみただけ
 # print("x_train_normalize",x_train_normalize[0])
-# make_img(x_train_normalize[0])
+make_img(x_train_normalize[0])
 
     
     
