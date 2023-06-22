@@ -43,7 +43,7 @@ class TwoLayerNet:
         return y # AIが出した結果
     
     def loss(self,x,t): #損失関数
-        y = self.predict(x)
+        y = self.predict(x)#784ニューロンとか
         return cross_entropy_error(y,t) #2.302944356298707のような値
     
     def accuracy(self,x,t): #どれくらい合っているか
