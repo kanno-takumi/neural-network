@@ -44,7 +44,7 @@ class TwoLayerNet:
     
     def loss(self,x,t): #損失関数
         y = self.predict(x)#784ニューロンとか
-        return cross_entropy_error(y,t) #2.302944356298707のような値
+        return reconstruction_error(y,t) #2.302944356298707のような値　＃再構成誤差を利用
     
     def accuracy(self,x,t): #どれくらい合っているか
         y = self.predict(x)
