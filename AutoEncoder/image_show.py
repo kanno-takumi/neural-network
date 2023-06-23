@@ -50,8 +50,8 @@ def make_img(img_array1,imgname):#.pngで保存するのを忘れない
 
 
 #sampleで入れてみただけ
-print("x_train_normalize",x_train_normalize[0])
-make_img(x_train_normalize[0],"sample.png")
+#print("x_train_normalize",x_train_normalize[0])
+#make_img(x_train_normalize[0],"sample.png")
 
     
     

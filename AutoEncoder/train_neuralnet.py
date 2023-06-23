@@ -50,8 +50,8 @@ def train_neuralnet():
         print("here")
         batch_mask = np.random.choice(train_size,batch_size)
         x_batch = x_train_0[batch_mask]#例 5207 5424 4372 133 114 4522 4704　ランダムにデータを撮ってきたいだけ
-        print(batch_mask)
-        print("x_batch",x_batch[0])
+        #print(batch_mask)
+        #print("x_batch",x_batch[0])
         t_batch = x_train_0[batch_mask] #入出力で比べるのが同じものでないと困る
     
         grad = network.numerical_gradient(x_batch,t_batch)
