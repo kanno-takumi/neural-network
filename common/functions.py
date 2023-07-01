@@ -54,7 +54,7 @@ def softmax_loss(X, t):
     y = softmax(X)
     return cross_entropy_error(y, t)
 
-def reconstruction_error(original_data, reconstructed_data):
+def reconstruction_error(y,t):
     """
     再構成誤差を計算する関数
     
@@ -65,10 +65,11 @@ def reconstruction_error(original_data, reconstructed_data):
     再構成誤差の値
     """
     # 配列をNumPyのndarrayに変換
-    original_data = np.array(original_data)
-    reconstructed_data = np.array(reconstructed_data)
+    y = np.array(y) 
+    #print("yのサイズ",y.shape) (100,784) = (batch,値)
+    t = np.array(t) 
     
     # 差の二乗和を計算
-    error = np.sum((original_data - reconstructed_data) ** 2)
+    error = np.sum((y - t) ** 2)
     
     return error

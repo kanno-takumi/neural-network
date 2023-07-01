@@ -26,7 +26,7 @@ class TwoLayerNet:
         self.params['b2'] = np.zeros(output_size)
         #print(self.params)
         
-    def predict(self,x):
+    def predict(self,x):#xはバッチで入る
         W1,W2 = self.params['W1'],self.params['W2']
         b1,b2 = self.params['b1'],self.params['b2']
         #ここで再度W1,W2,b1,b2を定義して入れている
@@ -35,15 +35,17 @@ class TwoLayerNet:
         z1 = relu(a1) #活性化関数
         a2 = np.dot(z1,W2) + b2      
         y = sigmoid(a2) #出力は0〜1　本来は0から255の値が入ることになっているが正規化しているため
+        
         #print("predictの出力",y)
         #print("xのサイズ",x.shape) 
         #print("W1のサイズ",W1.shape)
         #print("aのサイズ",a1.shape)
-        #print("yのサイズ",y.shape)
+        #print("yのサイズ",y.shape) => (100,784) = (batch,画像の数字列)
         return y # AIが出した結果
     
-    def loss(self,x,t): #損失関数
+    def loss(self,x,t): #損失関数 #引数はbatchで入る
         y = self.predict(x)#784ニューロンとか
+        #print("yのサイズ",y.shape) (100,784)
         return reconstruction_error(y,t) #2.302944356298707のような値　＃再構成誤差を利用
     
     def accuracy(self,x,t): #どれくらい合っているか

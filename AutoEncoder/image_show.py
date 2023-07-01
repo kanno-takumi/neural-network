@@ -7,8 +7,8 @@ from PIL import Image
 #1次元配列の正規化されたデータを元に戻す
 def denormalize(img_normalized):
     img_denormalized=img_normalized*255
-    print("まえ",img_normalized)
-    print("あと",img_denormalized)
+    #print("非正規化まえ",img_normalized)
+    #print("非正規化あと",img_denormalized)
     
     
     return img_denormalized
@@ -16,15 +16,15 @@ def denormalize(img_normalized):
 #1次元(784)を2次元配列(28x28)に変換する（0〜255の値）
 def reshape_img(img_array1):
     img_array1 = denormalize(img_array1)
-    print(img_array1.shape)
+    #print(img_array1.shape)
     img_array2 = img_array1.reshape(28,28)
-    print(img_array2.shape)
+    #print(img_array2.shape)
     return img_array2
 
 #2次元配列から画像を作る
 def make_img(img_array1,imgname):#.pngで保存するのを忘れない
-    print("1次元の配列(784)のはず",img_array1)
-    print("img_array1.shape",img_array1.shape)
+    #print("1次元の配列(784)のはず",img_array1)
+    #print("img_array1.shape",img_array1.shape)
     img_array2=reshape_img(img_array1)
     pil_img = Image.fromarray(np.uint8(img_array2))
     #pil_img.show()
