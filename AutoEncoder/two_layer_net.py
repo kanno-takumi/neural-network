@@ -47,6 +47,7 @@ class TwoLayerNet:
         y = self.predict(x)#784ニューロンとか
         #print("yのサイズ",y.shape) (100,784)
         return reconstruction_error(y,t) #2.302944356298707のような値　＃再構成誤差を利用
+    #reconstruction内で、batchデータをまとめて処理してlossを計算している。
     
     def accuracy(self,x,t): #どれくらい合っているか
         y = self.predict(x)
