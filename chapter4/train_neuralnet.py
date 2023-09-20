@@ -10,7 +10,7 @@ from two_layer_net import TwoLayerNet
 train_loss_list =[]
 
 #ハイパーパラメータ
-iters_num = 1#バッチデータに対する試行回数
+iters_num = 1000#バッチデータに対する試行回数
 train_size = x_train.shape[0]
 batch_size = 100
 learning_rate =0.1 #イータη
@@ -28,8 +28,11 @@ for i in range(iters_num):
     grad = network.numerical_gradient(x_batch,t_batch)
     #パラメータの更新(ちょっとずらす)
     for key in ('W1','b1','W2','b2'):
+        print("a",network.params[key].shape)#メモ　使う時は消す
+        print("b",grad[key].shape)#メモ
         network.params[key] = network.params[key] - learning_rate * grad[key]
         #例）network.params[W1] = network.params[W1] -  learning_rate * grad[W1]
+        
         
     #学習経過の記録
     loss = network.loss(x_batch,t_batch)

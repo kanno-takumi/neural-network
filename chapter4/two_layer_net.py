@@ -45,7 +45,7 @@ class TwoLayerNet:
         y = self.predict(x)
         return cross_entropy_error(y,t) #2.302944356298707のような値
     
-    def accuracy(self,x,t): #どれくらい合っているか
+    def accuracy(self,x,t): #どれくらい合っているか、正解率（全て取り出すのではない）
         y = self.predict(x)
         y = np.argmax(y,axis = 1) #配列の最大を返す
         t = np.argmax(t,axis = 1) 
@@ -57,7 +57,7 @@ class TwoLayerNet:
         loss_W = lambda : self.loss(x,t) #predictの結果と正解ラベルの交差エントロピー誤差  #無名関数
         grads = {} #ディクショナリー
         
-        #なぜ分ける必要があるのか
+        #なぜ分ける必要があるのか 損失関数loss_Wが小さくなるようにparametersを変化させていく
         grads['W1'] = numerical_gradient(loss_W,self.params['W1']) #引数(損失関数、その関数に入れる入力)
         grads['b1'] = numerical_gradient(loss_W,self.params['b1'])#サイズを決めるためだけにparams['b1'] ['W1'] ['W2'] ['b2']
         grads['W2'] = numerical_gradient(loss_W,self.params['W2'])
