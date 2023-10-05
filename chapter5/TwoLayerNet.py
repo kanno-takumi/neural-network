@@ -26,6 +26,7 @@ class TwoLayerNet:
         
     def predict(self,x):
         for layer in self.layers.values(): #layersの中の値に対して繰り返し作業を行う(affine1の中にはたくさんの重みとバイアスを持っている) values→例えばAffine1とか
+            #print("layer",layer)
             x =layer.forward(x) 
         #print("予想値:",x)
         return x

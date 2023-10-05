@@ -4,22 +4,22 @@ from common.functions import *
 from common.util import im2col, col2im
 
 
-# class Relu:
-#     def __init__(self):
-#         self.mask = None
+class Relu:
+    def __init__(self):
+        self.mask = None
 
-#     def forward(self, x):
-#         self.mask = (x <= 0)
-#         out = x.copy()
-#         out[self.mask] = 0
+    def forward(self, x):
+        self.mask = (x <= 0)
+        out = x.copy()
+        out[self.mask] = 0
 
-#         return out
+        return out
 
-#     def backward(self, dout):
-#         dout[self.mask] = 0
-#         dx = dout
+    def backward(self, dout):
+        dout[self.mask] = 0
+        dx = dout
 
-#         return dx
+        return dx
 
 
 class Sigmoid:
@@ -37,34 +37,40 @@ class Sigmoid:
         return dx
 
 
-# class Affine:
-#     def __init__(self, W, b):
-#         self.W =W
-#         self.b = b
+class Affine:
+    def __init__(self, W, b):
+        self.W =W
+        self.b = b
         
-#         self.x = None
-#         self.original_x_shape = None
-#         # 重み・バイアスパラメータの微分
-#         self.dW = None
-#         self.db = None
+        self.x = None
+        self.original_x_shape = None
+        # 重み・バイアスパラメータの微分
+        self.dW = None
+        self.db = None
 
-#     def forward(self, x):
-#         # テンソル対応
-#         self.original_x_shape = x.shape
-#         x = x.reshape(x.shape[0], -1)
-#         self.x = x
-
-#         out = np.dot(self.x, self.W) + self.b
-
-#         return out
-
-#     def backward(self, dout):
-#         dx = np.dot(dout, self.W.T)
-#         self.dW = np.dot(self.x.T, dout)
-#         self.db = np.sum(dout, axis=0)
+    def forward(self, x):
+        # テンソル対応
+        self.original_x_shape = x.shape
+        x = x.reshape(x.shape[0], -1)
+        self.x = x
         
-#         dx = dx.reshape(*self.original_x_shape)  # 入力データの形状に戻す（テンソル対応）
-#         return dx
+        #print("self.x",self.x.shape)
+        #print("self.W",self.W.shape)
+        #print("self.b",self.b.shape)
+        
+        out = np.dot(self.x, self.W) + self.b
+        
+
+
+        return out
+
+    def backward(self, dout):
+        dx = np.dot(dout, self.W.T)
+        self.dW = np.dot(self.x.T, dout)
+        self.db = np.sum(dout, axis=0)
+        
+        dx = dx.reshape(*self.original_x_shape)  # 入力データの形状に戻す（テンソル対応）
+        return dx
 
 
 class SoftmaxWithLoss:
@@ -91,7 +97,23 @@ class SoftmaxWithLoss:
         
         return dx
 
+class Reconstruction_Error:#間違っている可能性大
+    def __init__(self):
+        self.y = None
+        self.t = None
+    
+    def forward(self,y,t):
+        self.y = y
+        self.t = t
+        error = np.sum((y - t) ** 2)
+        
+        return error
 
+
+    def backward(self,dout=1):
+        dx = 2 * (self.y - self.t)
+        return dx
+    
 class Dropout:
     """
     http://arxiv.org/abs/1207.0580
