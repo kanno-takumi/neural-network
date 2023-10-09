@@ -105,14 +105,14 @@ class Reconstruction_Error:#間違っている可能性大
     def forward(self,y,t):
         self.y = y
         self.t = t
-        error = np.sum((y - t) ** 2)
+        error = np.sum((y - t) ** 2)/y.size
         
         return error
 
 
     def backward(self,dout=1):
-        dx = 2 * (self.y - self.t)
-        return dx
+        dy = 2 * (self.y - self.t)
+        return dy
     
 class Dropout:
     """

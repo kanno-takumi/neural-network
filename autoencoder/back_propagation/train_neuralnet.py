@@ -30,7 +30,7 @@ def train_neuralnet():
 
 
 
-    network = TwoLayerNet(input_size=784,hidden_size=20,output_size=784)
+    network = TwoLayerNet(input_size=784,hidden_size=100,output_size=784)
 
     for i in range(iters_num): #1バッチに対して勾配法を用いる回数
         print("here")
