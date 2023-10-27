@@ -7,5 +7,5 @@
 <br> その他、commonのlayers.py、functions.pyから関数や損失関数などを呼び出している。
 
 
-## multiple_number/one_number
+## multiple_number/one_numberフォルダ
 失敗フォルダ（放置）
