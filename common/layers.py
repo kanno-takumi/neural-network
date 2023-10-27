@@ -97,7 +97,7 @@ class SoftmaxWithLoss:
         
         return dx
 
-class Reconstruction_Error:#間違っている可能性大
+class Square_Error:#二乗和誤差
     def __init__(self):
         self.y = None
         self.t = None
@@ -105,15 +105,27 @@ class Reconstruction_Error:#間違っている可能性大
     def forward(self,y,t):
         self.y = y
         self.t = t
-        error = np.sum((y - t) ** 2)/y.size
+        #error = np.sum((y - t) ** 2)/y.size　#同じこと
+        error = 1.0/2.0*np.sum(np.square(y-t))
         
         return error
 
 
     def backward(self,dout=1):
-        dy = 2 * (self.y - self.t)
+        dy = self.y - self.t
         return dy
     
+
+class Reconstruction_Error:#再構成誤差
+    def __init__(self):
+        self.y = None
+        self.t = None
+        
+    def forward(self,y,t):
+        self.y = y
+        self.t = t
+        error = np.sum(-y*np.log(t)-(1-y)*np.log(1-t)) #こうさエントロピー誤差
+
 class Dropout:
     """
     http://arxiv.org/abs/1207.0580

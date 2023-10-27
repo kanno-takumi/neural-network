@@ -35,7 +35,7 @@ class TwoLayerNet:
         self.layers['Affine2'] = Affine(self.params['W2'], self.params['b2'])
         self.layers['Sigmoid'] = Sigmoid()
         
-        self.lastLayer = Reconstruction_Error()
+        self.lastLayer = Square_Error()#二乗和誤差を利用
         
     def predict(self,x):
         #誤差逆使わない時
@@ -87,10 +87,13 @@ class TwoLayerNet:
         self.loss(x,t)
         dout =1
         dout = self.lastLayer.backward(dout)
+        #print(dout)
         layers = list(self.layers.values())
         layers.reverse()
         for layer in layers:
-            dout = layer.backward(dout)
+            #print(layer)
+            dout = layer.backward(dout) #例Affine1.backward(dout)　これによって、Affine.backwardのdW = のところに式が入る
+            #print(dout.shape)
             
         grads = {}
         grads['W1'] = self.layers['Affine1'].dW

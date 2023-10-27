@@ -97,7 +97,7 @@ class SimpleConvNet:
         #勾配は進む方向を教えてくれる 
         grads= {} # gradsというディクショナリに各重みパラメータの勾配を格納する
         grads['W1'] = self.layers['Conv1'].dW
-        grads['b1'] = self.layers['Conb1'].db 
+        grads['b1'] = self.layers['Conv1'].db 
         grads['W2'] = self.layers['Affine1'].dW
         grads['b2'] = self.layers['Affine1'].db
         grads['W3'] = self.layers['Affine2'].dW
