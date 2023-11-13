@@ -5,3 +5,7 @@
 <br> two_layernet.pyではレイヤーの構造のみを記述してある。
 <br> 実際にtrain_neuralnet.pyで呼び起こすことでインスタンスを作る。
 <br> その他、commonのlayers.py、functions.pyから関数や損失関数などを呼び出している。
+
+
+## multiple_number/one_numberフォルダ
+失敗フォルダ（放置）
