@@ -25,8 +25,9 @@ for i in range(iters_num):
     t_batch = t_train[batch_mask]
     
     grad = network.gradient(x_batch,t_batch) #誤差逆伝播法によって勾配を求める
-    
-    for key in ('W1','b1','W2','b2'):
+    for key in ('W1','b1','W2','b2'):#多分下と同じ
+    # for key in network.params.keys():
+    # for key in network.params:
         #print("a",network.params[key].shape) #(784,50),(50,),(50,10),(10,)となって欲しい
         #print("b",grad[key].shape)#(784,50),(50,),(50,10),(10,)となればいい →ggradientがおかしそう grad[b1]→[50]のはずなのに[10]になってる？　解決
         network.params[key] -= learning_rate*grad[key]  #W1とW2の型がちがう

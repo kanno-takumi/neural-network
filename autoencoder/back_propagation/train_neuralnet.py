@@ -30,7 +30,7 @@ def train_neuralnet():
 
 
 
-    network = TwoLayerNet(input_size=784,hidden_size=100,output_size=784)
+    network = TwoLayerNet(input_size=784,hidden_size=10,output_size=784)#28*28
 
     for i in range(iters_num): #1バッチに対して勾配法を用いる回数
         print("here")
@@ -44,6 +44,8 @@ def train_neuralnet():
         grad = network.gradient(x_batch,t_batch)
     
         for key in ('W1','b1','W2','b2'):
+        # for key in network.params:
+        # for key in network.params.keys():
             network.params[key] -= learning_rate*grad[key]
         
         

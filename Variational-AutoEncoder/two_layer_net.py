@@ -28,37 +28,23 @@ class TwoLayerNet:
         self.params['b2'] = np.zeros(output_size)
         #print(self.params)
         
-        #レイヤの作成：誤差逆伝播法特有
         self.layers = OrderedDict()
         self.layers['Affine1'] = Affine(self.params['W1'],self.params['b1'])
-        self.layers['Relu1'] = Relu()
-        self.layers['Affine2'] = Affine(self.params['W2'], self.params['b2'])
+        self.layers['relu1'] = Relu()
+        self.layers['Affine2'] = Affine(self.params['W2'],self.params['b2'])
         self.layers['Sigmoid'] = Sigmoid()
         
-        self.lastLayer = Square_Error()#二乗和誤差を利用
+        self.lastLayer = Square_Error()
         
-    def predict(self,x):
-        #誤差逆使わない時
-        # W1,W2 = self.params['W1'],self.params['W2']
-        # b1,b2 = self.params['b1'],self.params['b2']
-        # a1 = np.dot(x,W1) + b1 #入力層からの計算
-        # z1 = relu(a1) #活性化関数
-        # a2 = np.dot(z1,W2) + b2      
-        # y = sigmoid(a2) #出力は0〜1　本来は0から255の値が入ることになっているが正規化しているため
-        #print(self.layers)
-        #誤差逆使う時
+    def predict(self,x):#xはバッチで入る
         for layer in self.layers.values():
-            # print(self.layers.values())
-            #print("どこのlayerでエラーが起きているのか？",layer)
             x = layer.forward(x)
         return x
-        
     
     def loss(self,x,t): #損失関数 #引数はbatchで入る
         y = self.predict(x)#784ニューロンとか
         #print("yのサイズ",y.shape) (100,784)
         return self.lastLayer.forward(y,t)
-    #reconstruction内で、batchデータをまとめて処理してlossを計算している。
     
     def accuracy(self,x,t): #どれくらい合っているか
         y = self.predict(x)
@@ -68,22 +54,30 @@ class TwoLayerNet:
         accuracy = np.sum( y==t ) / float(x.shape[0])
         return accuracy
     
+    # def numerical_gradient(self,x,t): #損失関数における勾配　＃x→入力データのこと t→教師データ
+    #     loss_W = lambda : self.loss(x,t) #predictの結果と正解ラベルの交差エントロピー誤差  #無名関数
+    #     grads = {} #ディクショナリー
+        
+    #     #なぜ分ける必要があるのか
+    #     grads['W1'] = numerical_gradient(loss_W,self.params['W1']) #引数(損失関数、その関数に入れる入力)
+    #     grads['b1'] = numerical_gradient(loss_W,self.params['b1'])#サイズを決めるためだけにparams['b1'] ['W1'] ['W2'] ['b2']
+    #     grads['W2'] = numerical_gradient(loss_W,self.params['W2'])
+    #     grads['b2'] = numerical_gradient(loss_W,self.params['b2'])
+    #     return grads
+    
     def gradient(self,x,t):
         self.loss(x,t)
-        dout =1
+        dout = 1
         dout = self.lastLayer.backward(dout)
-        #print(dout)
-        layers = list(self.layers.values())
+        layers = list (self.layers.values())
         layers.reverse()
         for layer in layers:
-            #print(layer)
-            dout = layer.backward(dout) #例Affine1.backward(dout)　これによって、Affine.backwardのdW = のところに式が入る
-            #print(dout.shape)
+            dout = layer.backward(dout)
             
         grads = {}
         grads['W1'] = self.layers['Affine1'].dW
         grads['b1'] = self.layers['Affine1'].db
         grads['W2'] = self.layers['Affine2'].dW
-        grads['b2'] = self.layers['Affine2'].db    
+        grads['b2'] = self.layers['Affine2'].db
         
         return grads
